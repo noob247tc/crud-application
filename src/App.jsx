@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
@@ -17,6 +17,11 @@ const addNote = () =>{
   setTitle('')
   setBody('')
 }
+
+useEffect(() => {
+  localStorage.setItem('notes', JSON.stringify(notes))
+}, [notes])
+
   return (
    <>
    <h1> My Note</h1>
@@ -24,13 +29,13 @@ const addNote = () =>{
    <textarea placeholder='Write your note...' value = {body} onChange={e => setBody(e.target.value)}></textarea>
    <button onClick={addNote}>Add Note</button>
    <div>
-    {notes.map(note =>(
+   
+    {notes.map(note => (
       <div key={note.id}>
         <h3>{note.title}</h3>
         <p>{note.body}</p>
       </div>
-      )
-    )}
+    ))}
    </div>
    </>
   )
